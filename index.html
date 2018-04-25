@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2 similar pictures</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script> 
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	 <!-- onload="init();" -->
+	<header></header>
+	<main>
+		<div class="wrapper">
+			<h2>Find two similar pictures</h2>
+			<div class="container">
+				<button id='startGame'>Start</button>
+				
+				<button id="hidePictures">hide</button>
+				<button id="showPictures">show</button>
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+	
+
+      <script>
+        $(document).ready(function() {
+        	var pictures = [
+        		'https://freeiconshop.com/wp-content/uploads/edd/car-flat.png',
+        		'https://cdn0.iconfinder.com/data/icons/tutor-icon-set/512/set_of_three_books-512.png',
+        		'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Circle-icons-dev.svg/1024px-Circle-icons-dev.svg.png',
+        		'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Circle-icons-location.svg/1024px-Circle-icons-location.svg.png',
+        		'https://cdn3.iconfinder.com/data/icons/happy-icons-vol-2/130/bus-512.png',
+        		'https://cdn0.iconfinder.com/data/icons/travel-and-transportation-flat-colorful-svg-icons/136/Travel_Transportation_holiday_vacation_fun-14-512.png',
+        		'https://i.pinimg.com/originals/d6/31/d7/d631d75da113f07eccb646cba2e934c7.png',
+        		'http://bit2men.com/wp-content/uploads/2017/11/24.png',
+        		'http://www.iconarchive.com/download/i99422/webalys/kameleon.pics/Bus.ico',
+        		'https://cdn4.iconfinder.com/data/icons/green-shopper/1053/carr.png',
+        		'https://cdn.iconscout.com/public/images/icon/premium/png-512/taxi-cab-car-34a5d0e491271ead-512x512.png',
+        		'https://cdn3.iconfinder.com/data/icons/ecology-and-nature-6/1400/eco-friendly-ecology-car-green_vehicle-natue-leaf-512.png',
+        		'https://image.flaticon.com/icons/png/512/235/235844.png',
+        		'https://png.pngtree.com/element_origin_min_pic/16/09/01/2257c8371d30853.jpg',
+        		'https://image.flaticon.com/icons/png/512/299/299320.png',
+        		'http://www.clker.com/cliparts/2/X/M/7/P/n/rocket-in-space.svg',
+        		'https://cdn1.vectorstock.com/i/thumb-large/65/40/rent-or-sale-car-dealer-service-conceptual-icon-vector-13906540.jpg',
+        		'https://www.carsales.com.au/instant-offer/dist/img/icon-finalise-your-sale.png']
+
+      		pictures = pictures.concat(pictures);//в массив дублируются те же самые картинки        	
+      		function picturesRandom(a, b) {//создание перемешанного массива картинок
+				return Math.random() - 0.5;
+			}
+
+			var cols = 6;
+			var rows = 6;
+			var quantityOfCells = cols * rows;//должно соответствовать количеству картинок в массиве
+			pictures.length == quantityOfCells ? console.log('Картинки готовы к игре') : console.log('Картинки не соответствуют количеству ячеек')
+
+        	$('#startGame').click(function () {
+        		$('#gameSet').remove();
+        		$('.container').append(`<div id="gameSet"></div>`);
+        		$('#startGame').text('New Game');
+
+				pictures.sort(picturesRandom);
+
+        		for (var i = 0; i < quantityOfCells; i++) {
+        			var picture = pictures[i]
+        			$('#gameSet').append(`
+        				<div class="itemWrap" onclick="hidePicture()">
+        					<img id="addAttr" class="tableCell visiblePicture"   "this.setAttribute('src', 'picture')" />
+        					<div class="pictureReplace"></div>
+        				</div>
+        			`);    
+        				addAttr.setAttribute('src', picture);
+        				addAttr.removeAttribute('id');    			
+        		}
+
+        		// setTimeout(function() {
+	        	// 	console.log('hide')
+	        	// 	$('img.tableCell').addClass('hiddenPicture')
+	        	// 	$('img.tableCell').removeClass('visiblePicture')        			
+	        	// }, 3000)
+
+				var items = document.querySelectorAll("div.itemWrap")
+				for (var n = 0; n < items.length; n++) {
+					items[n].onclick = hidePicture;
+				}
+				function hidePicture() {
+	        		console.log('item hidden')
+	        		$($(this).children('img')).removeClass('hiddenPicture');
+	        		$($(this).children('img')).addClass('visiblePicture');
+				}
+
+		        		// $('img.tableCell').addClass('hiddenPicture')
+		        		// $('img.tableCell').removeClass('visiblePicture') 
+        	})
+
+
+			//надо будет удалить эти две кнопки:
+        	$('#hidePictures').click(function () {
+	        		$('img.tableCell').addClass('hiddenPicture')
+	        		$('img.tableCell').removeClass('visiblePicture') 
+        	})
+        	$('#showPictures').click(function () {
+        		console.log('show')
+        		$('img.tableCell').addClass('visiblePicture')
+        		$('img.tableCell').removeClass('hiddenPicture')
+        	})
+
+        })
+
+
+    //     		$("#gameSet").click(function () {
+				// 	console.log("it works");
+				// 		$("#phoneNumbers").append('<p><input type="tel" placeholder="057-123-45-67"><button class="delPhone"  onclick="removeDiv()">x</button></p>')
+					
+				// 	var items = document.querySelectorAll("button.delPhone")
+				// 	for (var i = 0; i < items.length; i++) {
+				// 		items[i].onclick = removeDiv;
+				// 	}
+				// 	function removeDiv() {
+				// 		$($(this).parent()).remove();
+				// 	}
+				// });	
+
+
+                // $('td').click(function(e)   {
+        
+                //     var t = e.target || e.srcElement;
+     
+                //     var elm_name = t.tagName.toLowerCase();
+        
+                //     if(elm_name == 'input') {return false;}
+                //     var val = $(this).html();
+                //     var code = '<input type="text" id="edit" value="'+val+'" />';
+                //     $(this).empty().append(code);
+                //     $('#edit').focus();
+                //     $('#edit').blur(function()  {
+                //         var val = $(this).val();
+                //         $(this).parent().empty().html(val);
+                //     });
+                // });
+//                 window.addEventListener("load", function(){
+//     var table = document.getElementById('mTab');
+//     for (i=0; i < table.rows.length; i++) {
+//         for (j=0; j < table.rows[i].cells.length; j++) {
+//             table.rows[i].cells[j].onclick = onTDClick;
+//         }
+//     }
+// });
+//             });
+        </script>
+</html>
