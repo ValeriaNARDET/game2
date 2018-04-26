@@ -74,24 +74,41 @@
         				addAttr.removeAttribute('id');    			
         		}
 
-        		// setTimeout(function() {
-	        	// 	console.log('hide')
-	        	// 	$('img.tableCell').addClass('hiddenPicture')
-	        	// 	$('img.tableCell').removeClass('visiblePicture')        			
-	        	// }, 3000)
+        		setTimeout(function() {
+	        		console.log('hide')
+	        		$('img.tableCell').addClass('hiddenPicture')
+	        		$('img.tableCell').removeClass('visiblePicture')        			
+	        	}, 3000)
 
 				var items = document.querySelectorAll("div.itemWrap")
 				for (var n = 0; n < items.length; n++) {
 					items[n].onclick = hidePicture;
-				}
-				function hidePicture() {
-	        		console.log('item hidden')
-	        		$($(this).children('img')).removeClass('hiddenPicture');
-	        		$($(this).children('img')).addClass('visiblePicture');
+					items[n].onclick = hidePicture;
 				}
 
-		        		// $('img.tableCell').addClass('hiddenPicture')
-		        		// $('img.tableCell').removeClass('visiblePicture') 
+				var source1 = "";
+				function hidePicture(event) {
+	        		// console.log('item hidden')
+	        		var elem1 = $($(this).children('img'));
+	        		elem1.removeClass('hiddenPicture');
+	        		elem1.addClass('visiblePicture');
+	        		
+	        		console.log(elem1)
+	        		if (!source1) {
+	        			return source1 = elem1.attr('src');
+	        		} else if (source1 !== elem1.attr('src')) {
+	        			console.log('!==')
+	        			elem1 = null;
+	        			source1 = null;
+		        		// $($(this).children('img')).removeClass('visiblePicture');
+		        		// $($(this).children('img')).addClass('hiddenPicture');
+
+	        		} else {
+	        			console.log('===')
+	        			elem1 = null;
+	        			source1 = null;
+	        		}
+				}
         	})
 
 
@@ -105,48 +122,6 @@
         		$('img.tableCell').addClass('visiblePicture')
         		$('img.tableCell').removeClass('hiddenPicture')
         	})
-
         })
-
-
-    //     		$("#gameSet").click(function () {
-				// 	console.log("it works");
-				// 		$("#phoneNumbers").append('<p><input type="tel" placeholder="057-123-45-67"><button class="delPhone"  onclick="removeDiv()">x</button></p>')
-					
-				// 	var items = document.querySelectorAll("button.delPhone")
-				// 	for (var i = 0; i < items.length; i++) {
-				// 		items[i].onclick = removeDiv;
-				// 	}
-				// 	function removeDiv() {
-				// 		$($(this).parent()).remove();
-				// 	}
-				// });	
-
-
-                // $('td').click(function(e)   {
-        
-                //     var t = e.target || e.srcElement;
-     
-                //     var elm_name = t.tagName.toLowerCase();
-        
-                //     if(elm_name == 'input') {return false;}
-                //     var val = $(this).html();
-                //     var code = '<input type="text" id="edit" value="'+val+'" />';
-                //     $(this).empty().append(code);
-                //     $('#edit').focus();
-                //     $('#edit').blur(function()  {
-                //         var val = $(this).val();
-                //         $(this).parent().empty().html(val);
-                //     });
-                // });
-//                 window.addEventListener("load", function(){
-//     var table = document.getElementById('mTab');
-//     for (i=0; i < table.rows.length; i++) {
-//         for (j=0; j < table.rows[i].cells.length; j++) {
-//             table.rows[i].cells[j].onclick = onTDClick;
-//         }
-//     }
-// });
-//             });
         </script>
 </html>
